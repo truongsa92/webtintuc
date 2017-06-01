@@ -60,14 +60,28 @@ Route::group(['prefix' => 'admin'], function() {
 		Route::get('xoa/{id}', 'TinTucController@getXoa');
 	});
 	
+	Route::group(['prefix' => 'user'], function() {
+		Route::get('danhsach', 'UserController@getDanhSach');
+
+		Route::get('sua/{id}', 'UserController@getSua');
+		Route::post('sua/{id}', 'UserController@postSua');
+
+		Route::get('them', 'UserController@getThem');
+		Route::post('them', 'UserController@postThem');
+
+		Route::get('xoa/{id}', 'UserController@getXoa');
+	});
+
 	Route::group(['prefix' => 'ajax'], function() {
 		//Lấy danh sách loại tin theo idTheLoai
 		Route::get('loaitin/{idTheLoai}', 'AjaxController@getLoaiTin');
 	});
 });
 
-
-
+//Trang đăng nhập admin
+Route::get('admin/dangnhap', 'UserController@getDangNhapAdmin');
+Route::post('admin/dangnhap', 'UserController@postDangNhapAdmin');
+Route::get('admin/logout', 'UserController@getDangXuatAdmin');
 
 
 

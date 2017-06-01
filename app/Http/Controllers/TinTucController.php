@@ -84,7 +84,8 @@ class TinTucController extends Controller
 	{
 		$tintuc = TinTuc::find($id);
 		$tintuc->delete();
-
+		//Xoá ảnh
+		unlink('upload/tintuc/'.$tintuc->Hinh);
 		return redirect('admin/tintuc/danhsach')->with('thongbao', 'Xoá tin tức thành công');
 	}
 
@@ -101,7 +102,58 @@ class TinTucController extends Controller
 
 	public function postSua(Request $request, $id) 
 	{
-		exit(var_dump($id));
+		$tintuc = TinTuc::find($id);
+		$this->validate($request,
+			[
+				'LoaiTin' => 'required',
+				'TieuDe'  => 'required|min:3|max:100',
+				'TomTat'	=> 'required',
+				'NoiDung' => 'required',
+				'NoiBat'  => 'required',
+
+			],
+			[
+				'LoaiTin.required' => 'Bạn chưa chọn loại tin',
+				'TieuDe.required'  => 'Bạn chưa chọn tiêu đề',
+				'TieuDe.min'			 => 'Tiêu đề phải >= 3 kí tự',
+				'TieuDe.max'			 => 'Tiêu đề phải <= 100 kí tự',
+				'TomTat.required'  => 'Bạn chưa nhập tóm tắt',
+				'NoiDung.required'  => 'Bạn chưa nhập nội dung',
+				'NoiBat.required'  => 'Bạn chưa chọn tin nổi bật',
+			]
+		);
+		$tintuc->TieuDe = $request->TieuDe;
+		$tintuc->TieuDeKhongDau = changeTitle($request->TieuDe);
+		$tintuc->TomTat = $request->TomTat;
+		$tintuc->NoiDung = $request->NoiDung;
+		$tintuc->NoiBat = $request->NoiBat;
+
+		//Nếu người dùng chọn hình ảnh để upload
+		if($request->hasFile('HinhAnh')) {
+			$file = $request->file('HinhAnh');
+			$name = $file->getClientOriginalName();
+
+			//Xoá ảnh cũ 
+			unlink('upload/tintuc/'.$tintuc->Hinh);
+
+			$ext = $file->getClientOriginalExtension();
+
+			//Kiểm tra xem file có phải là ảnh không
+			if ($ext === 'jpg' || $ext === 'jpeg' || $ext === 'png') {
+				if (file_exists('upload/tintuc')) {
+					$file->move('upload/tintuc', $name);
+				}
+				$tintuc->Hinh = $name;
+			} else {
+				$tintuc->Hinh = "";
+			}
+		} 
+		$tintuc->idLoaiTin = $request->LoaiTin;
+		//Chưa làm chức năng đki cho user nên em để mặc định id là admin
+		$tintuc->idUser = 1;
+		$tintuc->save();
+
+		return redirect('admin/tintuc/sua/'.$id)->with('thongbao', 'Sửa tin tức thành công');
 	}
 }
 
