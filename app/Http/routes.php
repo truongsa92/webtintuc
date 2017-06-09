@@ -22,7 +22,7 @@ Route::get('/', function () {
 // 	}
 // });
 
-Route::group(['prefix' => 'admin'], function() {
+Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function() {
 
 	Route::group(['prefix' => 'theloai'], function() {
 		Route::get('danhsach', 'TheLoaiController@getDanhSach');
