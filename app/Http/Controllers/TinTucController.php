@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use App\TheLoai;
 use App\LoaiTin;
@@ -150,7 +150,7 @@ class TinTucController extends Controller
 		} 
 		$tintuc->idLoaiTin = $request->LoaiTin;
 		//Chưa làm chức năng đki cho user nên em để mặc định id là admin
-		$tintuc->idUser = 1;
+		$tintuc->idUser = Auth::user()->id;
 		$tintuc->save();
 
 		return redirect('admin/tintuc/sua/'.$id)->with('thongbao', 'Sửa tin tức thành công');

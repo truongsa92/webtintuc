@@ -1,20 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // Route::get('test', function() {
 // 	$user = App\User::find(1);
 // 	foreach ($user->tintuc as $tt) {
@@ -85,6 +70,24 @@ Route::get('admin/logout', 'UserController@getDangXuatAdmin');
 
 
 
+Route::get('/', 'PagesController@trangchu');
+Route::get('lienhe.html', 'PagesController@lienhe');
+Route::get('loaitin/{id}/{name}.html', 'PagesController@loaitin');
+Route::get('tintuc/{id}/{name}.html', 'PagesController@tintuc');
 
+//User đăng nhập
+Route::get('dangnhap', 'PagesController@getDangNhap');
+Route::post('dangnhap', 'PagesController@postDangNhap');
+Route::get('dangxuat', 'PagesController@getDangXuat');
+Route::get('user', 'PagesController@getUser');
+Route::post('user', 'PagesController@postUser');
 
+Route::get('dangki', 'PagesController@getDangKy');
+Route::post('dangki', 'PagesController@postDangKy');
+
+Route::get('timkiem', 'PagesController@timkiem');
+
+Route::get('newpost', 'PagesController@getNewPost');
+Route::post('newpost', 'PagesController@postNewPost');
+Route::get('loaitin/{idTheLoai}', 'AjaxController@getLoaiTin');
 

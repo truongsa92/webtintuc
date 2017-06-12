@@ -11,6 +11,7 @@ use App\User;
 
 class UserController extends Controller
 {
+
   public function getThem()
   {
     return view('admin.user.them');

@@ -21,6 +21,7 @@ class TaoTinTuc extends Migration
             $table->string('Hinh');
             $table->integer('NoiBat')->default(0);
             $table->integer('SoLuotXem')->default(0);
+            // $table->integer('pending')->default(0);
             $table->integer('idLoaiTin')->unsigned();
             $table->foreign('idLoaiTin')->references('id')->on('LoaiTin');
             $table->integer('idUser')->unsigned();
