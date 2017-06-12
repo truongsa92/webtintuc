@@ -10,6 +10,7 @@ use App\TheLoai;
 use App\LoaiTin;
 use App\TinTuc;
 use App\User;
+use Mail;
 
 class PagesController extends Controller
 {
@@ -165,7 +166,7 @@ class PagesController extends Controller
               ->orWhere('TomTat', 'like', "%$keyword%")
               ->orWhere('NoiDung', 'like', "%$keyword%")
               ->take(30)
-              ->paginate(1);
+              ->paginate(5);
     return view('pages.timkiem', ['tintuc' => $tintuc, 'keyword' => $keyword]);
   }
 
@@ -231,6 +232,25 @@ class PagesController extends Controller
 
     return redirect('newpost')->with('thongbao', 'Tin của bạn đã được thêm, hãy chờ admin duyệt!');
   }
+
+  public function getResetPassword()
+  {
+    return view('pages.resetpassword');
+  }
+
+  // public function postResetPassword(Request $request)
+  // {
+  //   $email = $request->email;
+  //   $mail = User::where('email', $email)->count();
+  //   if ($mail === 0) {
+  //     return redirect('resetpassword')->with('thongbao2', 'Mail này không tồn tại');
+  //   } else {
+  //     Mail::send('pages.email', ['email' => $email], function ($message) {
+  //         $message->to('nguyentruongsa19920311@gmail.com');
+  //     });
+  //     return redirect('resetpassword')->with('thongbao', 'Gửi passreset thành công, hãy check mail của bạn');
+  //   }
+  // }
 }
 
 

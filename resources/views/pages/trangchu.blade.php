@@ -5,7 +5,7 @@
 <div class="container">
 
 	<!-- slider -->
-	<div class="row carousel-holder">
+	{{-- <div class="row carousel-holder">
         <div class="col-md-12">
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -32,7 +32,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- end slide -->
 
     <div class="space20"></div>
@@ -65,10 +65,16 @@
 		                	?>
 		                	<div class="col-md-8 border-right">
 		                		<div class="col-md-5">
-			                        <a href="tintuc/{{$tin1['id']}}/{{$tin1['TieuDeKhongDau']}}.html">
-			                            <img class="img-responsive" src="upload/tintuc/{{$tin1['Hinh']}}" alt="">
-			                        </a>
-			                    </div>
+                          @if(!empty($tin1))
+		                        <a href="tintuc/{{$tin1['id']}}/{{$tin1['TieuDeKhongDau']}}.html">
+		                            <img class="img-responsive" src="upload/tintuc/{{$tin1['Hinh']}}" alt="">
+		                        </a>
+                          @else
+                            <p>
+                              Không có tin tức trong thể loại này
+                            </p>
+                          @endif
+		                    </div>
 
 			                    <div class="col-md-7">
 			                        <h3>{{$tin1['TieuDe']}}</h3>

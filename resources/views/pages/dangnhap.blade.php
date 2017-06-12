@@ -36,7 +36,8 @@
 					<br>
 					<input type="hidden" name="_token" value="{{csrf_token()}}">
 					<button type="submit" class="btn btn-default">Đăng nhập
-					</button>
+					</button> 
+					<a style="color: green" href="resetpassword">Quên mật khẩu</a>
 		    	</form>
 		  	</div>
 		</div>

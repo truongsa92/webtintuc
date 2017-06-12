@@ -14,7 +14,7 @@
 
             <!-- Author -->
             <p class="lead">
-                by <a href="#">admin</a>
+                by <a href="#">{{$user->name}}</a>
             </p>
 
             <!-- Preview Image -->
