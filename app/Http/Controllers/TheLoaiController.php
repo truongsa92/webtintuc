@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Http\Requests\TheLoaiRequest;
 use App\Http\Requests;
 use App\TheLoai;
 
@@ -14,19 +14,8 @@ class TheLoaiController extends Controller
   	return view('admin.theloai.them');
   }
 
-  public function postThem(Request $request)
+  public function postThem(TheLoaiRequest $request)
   {
-  	$this->validate($request,
-  		[
-  			'ten' => 'required|unique:TheLoai,Ten|min:3|max:100'
-  		],
-  		[
-  			'ten.required' => 'Bạn chưa nhập tên thể loại',
-  			'ten.unique' 	 => 'Bạn nhập trùng tên thể loại',
-				'ten.min' 		 => 'Tên thể loại phải >= 3 kí tự',
-				'ten.max' 		 => 'Tên thể loại phải <= 100 kí tự'
-  		]
-  	);
   	$theloai = new TheLoai;
   	$theloai->Ten = $request->ten;
   	$theloai->TenKhongDau = changeTitle($request->ten);
@@ -55,20 +44,9 @@ class TheLoaiController extends Controller
   	return view('admin.theloai.sua', ['theloai' => $theloai]);
   }
 
-  public function postSua(Request $request, $id)
+  public function postSua(TheLoaiRequest $request, $id)
   {
   	$theloai = TheLoai::find($id);
-  	$this->validate($request,
-  		[
-  			'ten' => 'required|unique:TheLoai|min:3|max:100'
-  		],
-  		[
-  			'ten.required' => 'Bạn chưa nhập tên thể loại',
-  			'ten.unique' 	 => 'Bạn nhập trùng tên thể loại',
-				'ten.min' 		 => 'Tên thể loại phải >= 3 kí tự',
-				'ten.max' 		 => 'Tên thể loại phải <= 100 kí tự'
-  		]
-  	);
   	$theloai->Ten = $request->ten;
   	$theloai->TenKhongDau = changeTitle($request->ten);
   	$theloai->save();

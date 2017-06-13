@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TinTucRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use App\TheLoai;
@@ -24,28 +25,8 @@ class TinTucController extends Controller
 		return view('admin.tintuc.them', ['theloai' => $theloai, 'loaitin' => $loaitin]);
 	}
 
-	public function postThem(Request $request)
+	public function postThem(TinTucRequest $request)
 	{
-		$this->validate($request,
-			[
-				'LoaiTin' => 'required',
-				'TieuDe'  => 'required|min:3|max:100',
-				'TomTat'	=> 'required',
-				'NoiDung' => 'required',
-				'NoiBat'  => 'required',
-
-			],
-			[
-				'LoaiTin.required' => 'Bạn chưa chọn loại tin',
-				'TieuDe.required'  => 'Bạn chưa chọn tiêu đề',
-				'TieuDe.min'			 => 'Tiêu đề phải >= 3 kí tự',
-				'TieuDe.max'			 => 'Tiêu đề phải <= 100 kí tự',
-				'TomTat.required'  => 'Bạn chưa nhập tóm tắt',
-				'NoiDung.required'  => 'Bạn chưa nhập nội dung',
-				'NoiBat.required'  => 'Bạn chưa chọn tin nổi bật',
-			]
-		);
-
 		$tintuc = new TinTuc;
 		$tintuc->TieuDe = $request->TieuDe;
 		$tintuc->TieuDeKhongDau = changeTitle($request->TieuDe);
@@ -100,28 +81,9 @@ class TinTucController extends Controller
 																			'tintuc' => $tintuc, 'idTheLoaiSelected' => $idTheLoaiSelected]);
 	}
 
-	public function postSua(Request $request, $id) 
+	public function postSua(TinTucRequest $request, $id) 
 	{
 		$tintuc = TinTuc::find($id);
-		$this->validate($request,
-			[
-				'LoaiTin' => 'required',
-				'TieuDe'  => 'required|min:3|max:100',
-				'TomTat'	=> 'required',
-				'NoiDung' => 'required',
-				'NoiBat'  => 'required',
-
-			],
-			[
-				'LoaiTin.required' => 'Bạn chưa chọn loại tin',
-				'TieuDe.required'  => 'Bạn chưa chọn tiêu đề',
-				'TieuDe.min'			 => 'Tiêu đề phải >= 3 kí tự',
-				'TieuDe.max'			 => 'Tiêu đề phải <= 100 kí tự',
-				'TomTat.required'  => 'Bạn chưa nhập tóm tắt',
-				'NoiDung.required'  => 'Bạn chưa nhập nội dung',
-				'NoiBat.required'  => 'Bạn chưa chọn tin nổi bật',
-			]
-		);
 		$tintuc->TieuDe = $request->TieuDe;
 		$tintuc->TieuDeKhongDau = changeTitle($request->TieuDe);
 		$tintuc->TomTat = $request->TomTat;

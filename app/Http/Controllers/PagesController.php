@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
+use App\Http\Requests\TinTucRequest;
+use App\Http\Requests\UserRequest;
 use App\TheLoai;
 use App\LoaiTin;
 use App\TinTuc;
@@ -129,27 +131,8 @@ class PagesController extends Controller
   {
     return view('pages.dangki');
   }
-  public function postDangKy(Request $request)
+  public function postDangKy(UserRequest $request)
   {
-    $this->validate($request,
-      [
-        'name'          => 'required|min:3',
-        'email'         => 'required|email|unique:users,email',
-        'password'      => 'required|min:6',
-        'passwordAgain' => 'required|same:password'
-      ],
-      [
-        'name.required'          => 'Bạn chưa nhập tên người dùng',
-        'name.min'               => 'Tên người dùng phải >=3 kí tự',
-        'email.required'         => 'Bạn chưa nhập email',
-        'email.email'            => 'Bạn chưa nhập đúng định dạng email',
-        'email.unique'           => 'Email đã tồn tại',
-        'password.required'      => 'Bạn chưa nhập mật khẩu',
-        'password.min'           => 'Mật khẩu phải >= 6 kí tự',
-        'passwordAgain.required' => 'Bạn chưa nhập lại mật khẩu',
-        'passwordAgain.same'     => 'Mật khẩu nhập lại không trùng khớp',
-      ]
-    );
     $user = new User;
     $user->name = $request->name;
     $user->email = $request->email;
@@ -165,7 +148,7 @@ class PagesController extends Controller
     $tintuc = TinTuc::where('TieuDe', 'like', "%$keyword%")
               ->orWhere('TomTat', 'like', "%$keyword%")
               ->orWhere('NoiDung', 'like', "%$keyword%")
-              ->take(30)
+              // ->take(30)
               ->paginate(5);
     return view('pages.timkiem', ['tintuc' => $tintuc, 'keyword' => $keyword]);
   }
@@ -177,28 +160,8 @@ class PagesController extends Controller
     return view('pages.newpost', ['theloai' => $theloai, 'loaitin' => $loaitin]);
   }
 
-  public function postNewPost(Request $request)
+  public function postNewPost(TinTucRequest $request)
   {
-    $this->validate($request,
-      [
-        'LoaiTin' => 'required',
-        'TieuDe'  => 'required|min:3|max:100',
-        'TomTat'  => 'required',
-        'NoiDung' => 'required',
-        'NoiBat'  => 'required',
-
-      ],
-      [
-        'LoaiTin.required' => 'Bạn chưa chọn loại tin',
-        'TieuDe.required'  => 'Bạn chưa chọn tiêu đề',
-        'TieuDe.min'       => 'Tiêu đề phải >= 3 kí tự',
-        'TieuDe.max'       => 'Tiêu đề phải <= 100 kí tự',
-        'TomTat.required'  => 'Bạn chưa nhập tóm tắt',
-        'NoiDung.required'  => 'Bạn chưa nhập nội dung',
-        'NoiBat.required'  => 'Bạn chưa chọn tin nổi bật',
-      ]
-    );
-
     $tintuc = new TinTuc;
     $tintuc->TieuDe = $request->TieuDe;
     $tintuc->TieuDeKhongDau = changeTitle($request->TieuDe);

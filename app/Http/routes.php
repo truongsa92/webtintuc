@@ -92,7 +92,7 @@ Route::post('newpost', 'PagesController@postNewPost');
 Route::get('loaitin/{idTheLoai}', 'AjaxController@getLoaiTin');
 
 Route::get('resetpassword', 'PagesController@getResetPassword');
-Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
 Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
+Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
 Route::post('password/reset', 'Auth\PasswordController@reset');
 
