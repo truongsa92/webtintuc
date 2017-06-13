@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use App\Http\Requests\TinTucRequest;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserLoginRequest;
 use App\TheLoai;
 use App\LoaiTin;
 use App\TinTuc;
 use App\User;
-use Mail;
 
 class PagesController extends Controller
 {
@@ -45,8 +45,8 @@ class PagesController extends Controller
   public function tintuc($id, $name)
   {
   	$tintuc = TinTuc::find($id);
-  	$tinNoiBat = TinTuc::where('NoiBat', 1)->where('id', '!=', $id)->inRandomOrder()->take(4)->get();
-  	$tinLienQuan = TinTUc::where('idLoaiTin', $tintuc->idLoaiTin)->where('id', '!=', $id)->inRandomOrder()->take(4)->get();
+  	$tinNoiBat = TinTuc::getTinNoiBat($id);
+  	$tinLienQuan = TinTUc::getTinLienQuan($id);
   	return view('pages.tintuc', 
   		[
   			'tintuc' => $tintuc, 
@@ -61,20 +61,8 @@ class PagesController extends Controller
     return view('pages.dangnhap');
   }
 
-  public function postDangNhap(Request $request)
+  public function postDangNhap(UserLoginRequest $request)
   {
-    $this->validate($request,
-      [
-        'email'          => 'required|min:3',
-        'password'      => 'required|min:6',
-      ],
-      [
-        'email.required'         => 'Bạn chưa nhập email',
-        'email.min'              => 'Email quá ngắn',
-        'password.required'      => 'Bạn chưa nhập mật khẩu',
-        'password.min'           => 'Mật khẩu phải >= 6 kí tự',
-      ]
-    );
     if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) 
     {
       return redirect('/');
@@ -145,11 +133,7 @@ class PagesController extends Controller
   public function timkiem(Request $request)
   { 
     $keyword = $request->keyword;
-    $tintuc = TinTuc::where('TieuDe', 'like', "%$keyword%")
-              ->orWhere('TomTat', 'like', "%$keyword%")
-              ->orWhere('NoiDung', 'like', "%$keyword%")
-              // ->take(30)
-              ->paginate(5);
+    $tintuc = TinTuc::searchTinTuc($keyword);
     return view('pages.timkiem', ['tintuc' => $tintuc, 'keyword' => $keyword]);
   }
 
@@ -200,20 +184,6 @@ class PagesController extends Controller
   {
     return view('pages.resetpassword');
   }
-
-  // public function postResetPassword(Request $request)
-  // {
-  //   $email = $request->email;
-  //   $mail = User::where('email', $email)->count();
-  //   if ($mail === 0) {
-  //     return redirect('resetpassword')->with('thongbao2', 'Mail này không tồn tại');
-  //   } else {
-  //     Mail::send('pages.email', ['email' => $email], function ($message) {
-  //         $message->to('nguyentruongsa19920311@gmail.com');
-  //     });
-  //     return redirect('resetpassword')->with('thongbao', 'Gửi passreset thành công, hãy check mail của bạn');
-  //   }
-  // }
 }
 
 

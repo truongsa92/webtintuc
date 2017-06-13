@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests;
 use App\User;
 
@@ -60,7 +61,6 @@ class UserController extends Controller
     } else {
       $user->levle = 0;
     }
-
     $user->save();
     return redirect('admin/user/sua/'.$id)->with('thongbao', 'Sửa user thành công');
   }
@@ -69,10 +69,11 @@ class UserController extends Controller
   {
     return view('admin.login');
   }
-  public function postDangNhapAdmin(Request $request)
+  public function postDangNhapAdmin(UserLoginRequest $request)
   { 
     if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) 
     {
+      //Khi riderect về trang này sẽ check user có phải là admin không qua middleware adminLogin
       return redirect('admin/theloai/danhsach');
     } else {
       return redirect('admin/dangnhap')->with('thongbao', 'Đăng nhập lỗi');
