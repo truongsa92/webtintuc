@@ -16,50 +16,50 @@
                             <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="admin/theloai/danhsach"><i class="fa fa-bar-chart-o fa-fw"></i> Thể loại<span class="fa arrow"></span></a>
+                            <a href="{{route('admin.theloai.index')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Thể loại<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="admin/theloai/danhsach">Danh sách</a>
+                                    <a href="{{route('admin.theloai.index')}}">Danh sách</a>
                                 </li>
                                 <li>
-                                    <a href="admin/theloai/them">Thêm</a>
+                                    <a href="{{route('admin.theloai.create')}}">Thêm</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="admin/loaitin/danhsach"><i class="fa fa-bar-chart-o fa-fw"></i> Loại tin<span class="fa arrow"></span></a>
+                            <a href="{{route('admin.loaitin.index')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Loại tin<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="admin/loaitin/danhsach">Danh sách</a>
+                                    <a href="{{route('admin.loaitin.index')}}">Danh sách</a>
                                 </li>
                                 <li>
-                                    <a href="admin/loaitin/them">Thêm</a>
+                                    <a href="{{route('admin.loaitin.create')}}">Thêm</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="admin/tintuc/danhsach"><i class="fa fa-bar-chart-o fa-fw"></i> Tin tức<span class="fa arrow"></span></a>
+                            <a href="{{route('admin.tintuc.index')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Tin tức<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="admin/tintuc/danhsach">Danh sách</a>
+                                    <a href="{{route('admin.tintuc.index')}}">Danh sách</a>
                                 </li>
                                 <li>
-                                    <a href="admin/tintuc/them">Thêm</a>
+                                    <a href="{{route('admin.tintuc.create')}}">Thêm</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         
                         <li>
-                            <a href="admin/user/danhsach"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
+                            <a href="{{route('admin.user.index')}}"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="admin/user/danhsach">Danh sách</a>
+                                    <a href="{{route('admin.user.index')}}">Danh sách</a>
                                 </li>
                                 <li>
-                                    <a href="admin/user/them">Thêm</a>
+                                    <a href="{{route('admin.user.create')}}">Thêm</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

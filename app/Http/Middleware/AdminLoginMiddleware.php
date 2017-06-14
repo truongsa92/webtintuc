@@ -21,7 +21,7 @@ class AdminLoginMiddleware
             if($user->levle === 2) {
                 return $next($request);
             } else {
-                return redirect('admin/dangnhap')->with('thongbao', 'Bạn không thể truy cập trang này 111');
+                return redirect('admin/dangnhap')->with('thongbao', 'Bạn không thể truy cập trang này');
             }
             return $next($request);
         } else {

@@ -37,4 +37,9 @@ class TinTuc extends Model
               ->paginate(5);
     return $tintuc;
   }
+  public static function getTinTuc()
+  {
+    $tintuc = TinTuc::paginate(10);
+    return $tintuc;
+  }
 }

@@ -24,7 +24,7 @@
                                 {{session('thongbao')}}
                             </div>
                         @endif
-                        <form action="admin/tintuc/them" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('admin.tintuc.store')}}" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label>Thể loại</label>
                                 <select class="form-control" name="TheLoai" id="TheLoai">

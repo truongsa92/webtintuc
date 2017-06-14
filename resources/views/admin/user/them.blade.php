@@ -24,7 +24,7 @@
                                 {{session('thongbao')}}
                             </div>
                         @endif
-                        <form action="admin/user/them" method="POST">
+                        <form action="{{route('admin.user.store')}}" method="POST">
                             <div class="form-group">
                                 <label>Name</label>
                                 <input class="form-control" name="name" placeholder="Nhập tên người dùng" />

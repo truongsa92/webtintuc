@@ -24,7 +24,7 @@
                                 {{session('thongbao')}}
                             </div>
                         @endif
-                        <form action="admin/tintuc/sua/{{$tintuc->id}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('admin.tintuc.update', $tintuc->id)}}" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label>Thể loại</label>
                                 <select class="form-control" name="TheLoai" id="TheLoai">
@@ -88,9 +88,9 @@
                                   >Không</label>
                                 </div>
                             </div>
-
+                            <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
-                            <button type="submit" class="btn btn-default">Add</button>
+                            <button type="submit" class="btn btn-default">Edit</button>
                             <button type="reset" class="btn btn-default">Reset</button>
                         <form>
                     </div>

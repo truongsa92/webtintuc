@@ -33,8 +33,14 @@
                                 <td>{{$lt->Ten}}</td>
                                 <td>{{$lt->TenKhongDau}}</td>
                                 <td>{{$lt->theloai->Ten}}</td>
-                                <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="admin/loaitin/xoa/{{$lt->id}}"> Delete</a></td>
-                                <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="admin/loaitin/sua/{{$lt->id}}">Edit</a></td>
+                                <td class="center"><i class="fa fa-trash-o  fa-fw"></i>
+                                <form action="{{route('admin.loaitin.destroy' , $lt->id)}}" method="POST">
+                                    <input name="_method" type="hidden" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                    <button type="submit" class="btn btn-primary">Delete</button>
+                                </form>
+                                </td>
+                                <td class="center"><i class="fa fa-pencil fa-fw"></i><br><a href="{{route('admin.loaitin.edit', $lt->id)}}">Edit</a></td>
                             </tr>
                             @endforeach
                         </tbody>

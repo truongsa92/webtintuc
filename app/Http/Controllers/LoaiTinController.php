@@ -10,52 +10,51 @@ use App\TheLoai;
 
 class LoaiTinController extends Controller
 {
-  public function getDanhSach()
+  public function index()
   {
-  	$loaitin = LoaiTin::all();
-  	return view('admin.loaitin.danhsach', ['loaitin' => $loaitin]);
+    $loaitin = LoaiTin::all();
+    return view('admin.loaitin.danhsach', ['loaitin' => $loaitin]);
   }
 
-  public function getThem()
+  public function create()
   {
-  	$theloai = TheLoai::all();
-  	return view('admin.loaitin.them', ['theloai' => $theloai]);
+    $theloai = TheLoai::all();
+    return view('admin.loaitin.them', ['theloai' => $theloai]);
   }
 
-  public function postThem(LoaiTinRequest $request)
+  public function store(LoaiTinRequest $request)
   {
-  	$loaitin = new LoaiTin;
-		$loaitin->Ten = $request->Ten;
-		$loaitin->TenKhongDau = changeTitle($request->Ten);
-		$loaitin->idTheLoai = $request->TheLoai;
-		$loaitin->save();
+    $loaitin = new LoaiTin;
+    $loaitin->Ten = $request->Ten;
+    $loaitin->TenKhongDau = changeTitle($request->Ten);
+    $loaitin->idTheLoai = $request->TheLoai;
+    $loaitin->save();
 
-		return redirect('admin/loaitin/them')->with('thongbao', 'Bạn đã thêm loại tin thành công');
+    return redirect()->route('admin.loaitin.create')->with('thongbao', 'Bạn đã thêm loại tin thành công');
   }
 
-  public function getXoa($id)
+  public function edit($id)
   {
-  	$loaitin = LoaiTin::find($id);
-  	$loaitin->delete();
-
-  	return redirect('admin/loaitin/danhsach')->with('thongbao', 'Xoá loại tin thành công');
+    $loaitin = LoaiTin::find($id);
+    $theloai = TheLoai::all();
+    return view('admin.loaitin.sua', ['loaitin' => $loaitin, 'theloai' => $theloai]);
   }
 
-  public function getSua($id)
+  public function update(LoaiTinRequest $request, $id)
   {
-  	$loaitin = LoaiTin::find($id);
-		$theloai = TheLoai::all();
-		return view('admin.loaitin.sua', ['loaitin' => $loaitin, 'theloai' => $theloai]);
+    $loaitin = LoaiTin::find($id);
+    $loaitin->Ten = $request->Ten;
+    $loaitin->TenKhongDau = changeTitle($request->Ten);
+    $loaitin->idTheLoai = $request->TheLoai;
+
+    $loaitin->save();
+    return redirect()->route('admin.loaitin.edit', [$id])->with('thongbao', 'Bạn đã sửa thành công');
   }
+  public function destroy($id)
+  {
+    $loaitin = LoaiTin::find($id);
+    $loaitin->delete();
 
-  public function postSua(LoaiTinRequest $request, $id) 
-	{
-		$loaitin = LoaiTin::find($id);
-		$loaitin->Ten = $request->Ten;
-		$loaitin->TenKhongDau = changeTitle($request->Ten);
-		$loaitin->idTheLoai = $request->TheLoai;
-
-		$loaitin->save();
-		return redirect('admin/loaitin/sua/'.$id)->with('thongbao', 'Bạn đã sửa thành công');
-	}
+    return redirect()->route('admin.loaitin.index')->with('thongbao', 'Xoá loại tin thành công');
+  }
 }

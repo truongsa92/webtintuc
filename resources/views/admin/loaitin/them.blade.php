@@ -24,7 +24,7 @@
                                 {{session('thongbao')}}
                             </div>
                         @endif
-                        <form action="" method="POST">
+                        <form action="{{route('admin.loaitin.store')}}" method="POST">
                             <div class="form-group">
                                 <label>Thể loại</label>
                                 <select class="form-control" name="TheLoai">

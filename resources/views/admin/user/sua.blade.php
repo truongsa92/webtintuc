@@ -24,14 +24,14 @@
                                 {{session('thongbao')}}
                             </div>
                         @endif
-                        <form action="admin/user/sua/{{$user->id}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('admin.user.update', $user->id)}}" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label>Name</label>
                                 <input class="form-control" value="{{$user->name}}" name="name" placeholder="Nhập tên người dùng" />
                             </div>
                             <div class="form-group">
                                 <label>Email</label>
-                                <input class="form-control" value="{{$user->email}}" readonly="" name="email" placeholder="Nhập email người dùng" />
+                                <input class="form-control" value="{{$user->email}}" name="email" placeholder="Nhập email người dùng" />
                             </div>
                             <div class="form-group">
                                 <label>Password</label>
@@ -65,7 +65,8 @@
                                   >Member</label>
                                 </div>
                             </div>
-
+                            <input type="hidden" name="id" value="{{$user->id}}">
+                            <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                             <button type="submit" class="btn btn-default">Add</button>
                             <button type="reset" class="btn btn-default">Reset</button>

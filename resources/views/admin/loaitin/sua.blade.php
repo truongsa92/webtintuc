@@ -25,7 +25,7 @@
                             </div>
                         @endif
                         
-                        <form action="admin/loaitin/sua/{{$loaitin->id}}" method="POST">
+                        <form action="{{route('admin.loaitin.update', $loaitin->id)}}" method="POST">
                             <div class="form-group">
                                 <label>Thể loại</label>
                                 <select class="form-control" name="TheLoai">
@@ -43,6 +43,7 @@
                                 <input class="form-control" name="Ten" placeholder="Nhập tên loại tin" 
                                 value="{{$loaitin->Ten}}"/>
                             </div>
+                            <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                             <button type="submit" class="btn btn-default">Edit</button>
                             <button type="reset" class="btn btn-default">Reset</button>

@@ -9,7 +9,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">Web Tin Tức</a>
+                <a class="navbar-brand" href="{{route('home')}}">Web Tin Tức</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -18,11 +18,11 @@
                         <a href="#">Giới thiệu</a>
                     </li>
                     <li>
-                        <a href="/lienhe.html">Liên hệ</a>
+                        <a href="{{route('lienhe')}}">Liên hệ</a>
                     </li>
                 </ul>
 
-                <form action="timkiem" method="GET" class="navbar-form navbar-left" role="search">
+                <form action="{{route('search')}}" method="GET" class="navbar-form navbar-left" role="search">
 			        <div class="form-group">
 			          <input type="text" class="form-control" placeholder="Tìm kiếm" name="keyword">
 			        </div>
@@ -33,24 +33,24 @@
 			    <ul class="nav navbar-nav pull-right">
                     @if(!isset($user))
                         <li>
-                            <a href="dangki">Đăng ký</a>
+                            <a href="{{route('user.register')}}">Đăng ký</a>
                         </li>
                         <li>
-                            <a href="dangnhap">Đăng nhập</a>
+                            <a href="{{route('user.login')}}">Đăng nhập</a>
                         </li>
                     @else
                         <li>
-                            <a href="newpost">Post bài viết</a>
+                            <a href="{{route('user.post')}}">Post bài viết</a>
                         </li>
                         <li>
-                        	<a href="user">
+                        	<a href="{{route('user.edit')}}">
                         		<span class ="glyphicon glyphicon-user"></span>
                         		{{$user->name}}
                         	</a>
                         </li>
 
                         <li>
-                        	<a href="dangxuat">Đăng xuất</a>
+                        	<a href="{{route('user.logout')}}">Đăng xuất</a>
                         </li>
                     @endif
                 </ul>

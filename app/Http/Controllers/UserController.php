@@ -13,46 +13,14 @@ use App\User;
 class UserController extends Controller
 {
 
-  public function getThem()
+  public function create()
   {
     return view('admin.user.them');
   }
 
-  public function postThem(UserRequest $request)
+  public function store(UserRequest $request)
   {
     $user = new User;
-    $user->name = $request->name;
-    $user->email = $request->email;
-    $user->password = bcrypt($request->password);
-    $user->levle = $request->levle;
-    $user->save();
-    return redirect('admin/user/them')->with('thongbao', 'Thêm user thành công');
-
-  }
-
-  public function getDanhSach()
-  {
-    $users = User::all();
-    return view('admin.user.danhsach', ['users' => $users]);
-  }
-
-  public function getXoa($id)
-  {
-    $user = User::find($id);
-    $user->delete();
-
-    return redirect('admin/user/danhsach')->with('thongbao', 'Xoá user thành công');
-  }
-
-  public function getSua($id)
-  {
-    $user = User::find($id);
-    return view('admin.user.sua', ['user' => $user]);
-  }
-
-  public function postSua(UserRequest $request, $id)
-  {
-    $user = User::find($id);
     $user->name = $request->name;
     $user->email = $request->email;
     $user->password = bcrypt($request->password);
@@ -62,7 +30,38 @@ class UserController extends Controller
       $user->levle = 0;
     }
     $user->save();
-    return redirect('admin/user/sua/'.$id)->with('thongbao', 'Sửa user thành công');
+    return redirect()->route('admin.user.create')->with('thongbao', 'Thêm user thành công');
+  }
+
+  public function index()
+  {
+    $users = User::all();
+    return view('admin.user.danhsach', ['users' => $users]);
+  }
+
+  public function destroy($id)
+  {
+    $user = User::find($id);
+    $user->delete();
+
+    return redirect()->route('admin.user.index')->with('thongbao', 'Xoá user thành công');
+  }
+
+  public function edit($id)
+  {
+    $user = User::find($id);
+    return view('admin.user.sua', ['user' => $user]);
+  }
+
+  public function update(UserRequest $request, $id)
+  {
+    $user = User::find($id);
+    $user->name = $request->name;
+    $user->email = $request->email;
+    $user->password = bcrypt($request->password);
+    $user->levle = $request->levle;
+    $user->save();
+    return redirect()->route('admin.user.edit', [$id])->with('thongbao', 'Sửa user thành công');
   }
 
   public function getDangNhapAdmin()
@@ -74,15 +73,15 @@ class UserController extends Controller
     if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) 
     {
       //Khi riderect về trang này sẽ check user có phải là admin không qua middleware adminLogin
-      return redirect('admin/theloai/danhsach');
+      return redirect()->route('admin.theloai.index');
     } else {
-      return redirect('admin/dangnhap')->with('thongbao', 'Đăng nhập lỗi');
+      return redirect()->route('admin.login')->with('thongbao', 'Đăng nhập lỗi');
     }
   }
 
   public function getDangXuatAdmin()
   {
     Auth::logout();
-    return redirect('admin/dangnhap');
+    return redirect()->route('admin.login');
   }
 }

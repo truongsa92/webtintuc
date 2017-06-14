@@ -12,20 +12,20 @@ use App\TinTuc;
 
 class TinTucController extends Controller
 {
-  public function getDanhSach()
-  {	
-  	$tintuc = TinTuc::all();
+	public function index()
+	{
+		$tintuc = TinTuc::getTinTuc();
   	return view('admin.tintuc.danhsach', ['tintuc' => $tintuc]);
-  }
+	}
 
-  public function getThem()
+  public function create()
 	{
 		$theloai = Theloai::all();
 		$loaitin = LoaiTin::all();
 		return view('admin.tintuc.them', ['theloai' => $theloai, 'loaitin' => $loaitin]);
 	}
 
-	public function postThem(TinTucRequest $request)
+	public function store(TinTucRequest $request)
 	{
 		$tintuc = new TinTuc;
 		$tintuc->TieuDe = $request->TieuDe;
@@ -58,19 +58,19 @@ class TinTucController extends Controller
 		$tintuc->idUser = 1;
 		$tintuc->save();
 
-		return redirect('admin/tintuc/them')->with('thongbao', 'Thêm tin tức thành công');
+		return redirect()->route('admin.tintuc.create')->with('thongbao', 'Thêm tin tức thành công');
 	}
 
-	public function getXoa($id)
+	public function destroy($id)
 	{
 		$tintuc = TinTuc::find($id);
 		$tintuc->delete();
 		//Xoá ảnh
 		unlink('upload/tintuc/'.$tintuc->Hinh);
-		return redirect('admin/tintuc/danhsach')->with('thongbao', 'Xoá tin tức thành công');
+		return redirect()->route('admin.tintuc.index')->with('thongbao', 'Xoá tin tức thành công');
 	}
 
-	public function getSua($id)
+	public function edit($id)
 	{
 		$theloai = Theloai::all();
 		$loaitin = LoaiTin::all();
@@ -81,7 +81,7 @@ class TinTucController extends Controller
 																			'tintuc' => $tintuc, 'idTheLoaiSelected' => $idTheLoaiSelected]);
 	}
 
-	public function postSua(TinTucRequest $request, $id) 
+	public function update(TinTucRequest $request, $id) 
 	{
 		$tintuc = TinTuc::find($id);
 		$tintuc->TieuDe = $request->TieuDe;
@@ -115,7 +115,7 @@ class TinTucController extends Controller
 		$tintuc->idUser = Auth::user()->id;
 		$tintuc->save();
 
-		return redirect('admin/tintuc/sua/'.$id)->with('thongbao', 'Sửa tin tức thành công');
+		return redirect()->route('admin.tintuc.edit', [$id])->with('thongbao', 'Sửa tin tức thành công');
 	}
 }
 

@@ -25,12 +25,13 @@
                             </div>
                         @endif
                         
-                        <form action="admin/theloai/sua/{{$theloai->id}}" method="POST">
+                        <form action="{{route('admin.theloai.update', $theloai->id)}}" method="POST">
                             <div class="form-group">
                                 <label>Tên thể loại</label>
                                 <input class="form-control" name="ten" placeholder="Điền tên thể loại" 
                                 value="{{$theloai->Ten}}"/>
                             </div>
+                            <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                             <button type="submit" class="btn btn-default">Sửa</button>
                             <button type="reset" class="btn btn-default">Reset</button>

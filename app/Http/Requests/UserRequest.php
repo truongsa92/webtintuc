@@ -22,10 +22,10 @@ class UserRequest extends Request
      * @return array
      */
     public function rules()
-    {
+    {   
         return [
            'name'           => 'required|min:3',
-            'email'         => 'required|email|unique:users,email',
+            'email'         => "required|email|unique:users,email,$this->id",
             'password'      => 'required|min:6',
             'passwordAgain' => 'required|same:password',
         ];

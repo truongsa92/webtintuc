@@ -24,7 +24,7 @@
                     {{session('thongbao')}}
                 </div>
             @endif
-                <form action="admin/theloai/them" method="POST">
+                <form action="{{route('admin.theloai.store')}}" method="POST">
                     <div class="form-group">
                         <label>Tên thể loại</label>
                         <input class="form-control" name="ten" placeholder="Nhập tên thể loại" />

@@ -45,7 +45,7 @@
                                 {{session('thongbao')}}
                             </div>
                         @endif
-                        <form role="form" action="admin/dangnhap" method="POST">
+                        <form role="form" action="{{route('admin.login')}}" method="POST">
                             <fieldset>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="E-mail" name="email">

@@ -47,12 +47,21 @@
                                         @endif
                                     </td>
                                     <td>{{$tt->SoLuotXem}}</td>
-                                    <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="admin/tintuc/xoa/{{$tt->id}}"> Delete</a></td>
-                                    <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="admin/tintuc/sua/{{$tt->id}}">Edit</a></td>
+                                    <td class="center"><i class="fa fa-trash-o  fa-fw"></i>
+                                        <form action="{{route('admin.tintuc.destroy' , $tt->id)}}" method="POST">
+                                            <input name="_method" type="hidden" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                            <button type="submit" class="btn btn-primary">Delete</button>
+                                        </form>
+                                    </td>
+                                    <td class="center"><i class="fa fa-pencil fa-fw"></i><br><a href="{{route('admin.tintuc.edit', $tt->id)}}">Edit</a></td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    <div style="text-align: center">
+                    {{$tintuc->links()}}
+                </div>
                 </div>
                 <!-- /.row -->
             </div>

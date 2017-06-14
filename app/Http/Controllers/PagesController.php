@@ -65,16 +65,16 @@ class PagesController extends Controller
   {
     if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) 
     {
-      return redirect('/');
+      return redirect()->route('home');
     } else {
-      return redirect('dangnhap')->with('thongbao', 'Đăng nhập không thành công');
+      return redirect()->route('user.login')->with('thongbao', 'Đăng nhập không thành công');
     }
   }
 
   public function getDangXuat()
   {
     Auth::logout();
-    return redirect('dangnhap');
+    return redirect()->route('user.login');
   }
 
   public function getUser()
@@ -112,7 +112,7 @@ class PagesController extends Controller
       $user->password = bcrypt($request->password);
     }
     $user->save();
-    return redirect('user')->with('thongbao', 'Sửa thông tin thành công');
+    return redirect()->route('user.edit')->with('thongbao', 'Sửa thông tin thành công');
   }
 
   public function getDangKy()
@@ -127,7 +127,7 @@ class PagesController extends Controller
     $user->password = bcrypt($request->password);
     $user->levle = 0;
     $user->save();
-    return redirect('dangki')->with('thongbao', 'Đăng kí thành công');
+    return redirect()->route('user.register')->with('thongbao', 'Đăng kí thành công');
   }
 
   public function timkiem(Request $request)
@@ -177,7 +177,7 @@ class PagesController extends Controller
     // $tintuc->pending = 1;
     $tintuc->save();
 
-    return redirect('newpost')->with('thongbao', 'Tin của bạn đã được thêm, hãy chờ admin duyệt!');
+    return redirect()->route('user.post')->with('thongbao', 'Tin của bạn đã được thêm, hãy chờ admin duyệt!');
   }
 
   public function getResetPassword()
