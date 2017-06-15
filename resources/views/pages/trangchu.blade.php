@@ -67,7 +67,7 @@
 		                		<div class="col-md-5">
                           @if(!empty($tin1))
                             <a href="{{route('tintuc', [$tin1['id'], $tin1['TieuDeKhongDau']])}}">
-		                            <img class="img-responsive" src="upload/tintuc/{{$tin1['Hinh']}}" alt="">
+		                            <img class="img-responsive" src="{{$baseSrc}}{{$tin1['Hinh']}}" alt="">
 		                        </a>
                           @else
                             <p>

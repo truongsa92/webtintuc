@@ -19,7 +19,9 @@ class PagesController extends Controller
 	function __construct()
 	{
   	$theloai = TheLoai::all();
+    $baseSrc = 'upload/tintuc/';
   	view()->share('theloai', $theloai);
+    view()->share('baseSrc', $baseSrc);
     if(Auth::check()) {
       view()->share('user', Auth::user());
     }

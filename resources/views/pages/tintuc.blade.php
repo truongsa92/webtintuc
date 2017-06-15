@@ -18,7 +18,7 @@
             </p>
 
             <!-- Preview Image -->
-            <img class="img-responsive" src="upload/tintuc/{{$tintuc->Hinh}}" alt="">
+            <img class="img-responsive" src="{{$baseSrc}}{{$tintuc->Hinh}}" alt="">
 
             <!-- Date/Time -->
             <p><span class="glyphicon glyphicon-time"></span>{{$tintuc->created_at}}</p>
@@ -72,7 +72,7 @@
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-md-5">
                             <a href="{{route('tintuc', [$tlq->id, $tlq->TieuDeKhongDau])}}">
-                                <img class="img-responsive" src="upload/tintuc/{{$tlq->Hinh}}" alt="">
+                                <img class="img-responsive" src="{{$baseSrc}}{{$tlq->Hinh}}" alt="">
                             </a>
                         </div>
                         <div class="col-md-7">
@@ -94,7 +94,7 @@
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-md-5">
                              <a href="{{route('tintuc', [$tnb->id, $tnb->TieuDeKhongDau])}}">
-                                <img class="img-responsive" src="upload/tintuc/{{$tnb->Hinh}}" alt="">
+                                <img class="img-responsive" src="{{$baseSrc}}{{$tnb->Hinh}}" alt="">
                             </a>
                         </div>
                         <div class="col-md-7">
