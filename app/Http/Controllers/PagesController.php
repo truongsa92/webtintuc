@@ -38,20 +38,22 @@ class PagesController extends Controller
   public function loaitin($id, $name)
   {
   	$loaitin = LoaiTin::find($id);
-  	$tintuc = TinTuc::where('idLoaiTin', $id)->paginate(5);
+  	$tintuc = TinTuc::getTinTucByIdLoaiTin($id);
   	return view('pages.loaitin', ['loaitin' => $loaitin, 'tintuc' => $tintuc]);
   }
 
   public function tintuc($id, $name)
   {
   	$tintuc = TinTuc::find($id);
+    $tacgia = $tintuc->user->name;
   	$tinNoiBat = TinTuc::getTinNoiBat($id);
   	$tinLienQuan = TinTUc::getTinLienQuan($id);
   	return view('pages.tintuc', 
   		[
-  			'tintuc' => $tintuc, 
-  			'tinNoiBat' => $tinNoiBat, 
-  			'tinLienQuan' => $tinLienQuan
+        'tacgia'       => $tacgia,  
+  			'tintuc'       => $tintuc, 
+  			'tinNoiBat'    => $tinNoiBat, 
+  			'tinLienQuan'  => $tinLienQuan
   		]);
   }
   // ********************************************************************** //
@@ -121,12 +123,7 @@ class PagesController extends Controller
   }
   public function postDangKy(UserRequest $request)
   {
-    $user = new User;
-    $user->name = $request->name;
-    $user->email = $request->email;
-    $user->password = bcrypt($request->password);
-    $user->levle = 0;
-    $user->save();
+    User::saveUser($request);
     return redirect()->route('user.register')->with('thongbao', 'Đăng kí thành công');
   }
 
@@ -143,40 +140,10 @@ class PagesController extends Controller
     $loaitin = LoaiTin::all();
     return view('pages.newpost', ['theloai' => $theloai, 'loaitin' => $loaitin]);
   }
-
+  
   public function postNewPost(TinTucRequest $request)
   {
-    $tintuc = new TinTuc;
-    $tintuc->TieuDe = $request->TieuDe;
-    $tintuc->TieuDeKhongDau = changeTitle($request->TieuDe);
-    $tintuc->TomTat = $request->TomTat;
-    $tintuc->NoiDung = $request->NoiDung;
-    $tintuc->NoiBat = $request->NoiBat;
-
-    //Nếu người dùng chọn hình ảnh để upload
-    if($request->hasFile('HinhAnh')) {
-      $file = $request->file('HinhAnh');
-      $name = $file->getClientOriginalName();
-
-      $ext = $file->getClientOriginalExtension();
-
-      //Kiểm tra xem file có phải là ảnh không
-      if ($ext === 'jpg' || $ext === 'jpeg' || $ext === 'png') {
-        if (file_exists('upload/tintuc')) {
-          $file->move('upload/tintuc', $name);
-        }
-        $tintuc->Hinh = $name;
-      } else {
-        $tintuc->Hinh = "";
-      }
-    } else {
-      $tintuc->Hinh = "";
-    }
-    $tintuc->idLoaiTin = $request->LoaiTin;
-    $tintuc->idUser = Auth::user()->id;
-    // $tintuc->pending = 1;
-    $tintuc->save();
-
+    TinTuc::saveTinTuc($request);
     return redirect()->route('user.post')->with('thongbao', 'Tin của bạn đã được thêm, hãy chờ admin duyệt!');
   }
 

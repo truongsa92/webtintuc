@@ -28,6 +28,7 @@ class TinTucRequest extends Request
             'TieuDe'  => 'required|min:3|max:100',
             'TomTat'    => 'required',
             'NoiDung' => 'required',
+            'HinhAnh'         => 'image',
             'NoiBat'  => 'required',
         ];
     }
@@ -41,6 +42,7 @@ class TinTucRequest extends Request
             'TieuDe.max'             => 'Tiêu đề phải <= 100 kí tự',
             'TomTat.required'  => 'Bạn chưa nhập tóm tắt',
             'NoiDung.required'  => 'Bạn chưa nhập nội dung',
+            'HinhAnh.image'    => 'Bạn chọn sai định dạng ảnh',
             'NoiBat.required'  => 'Bạn chưa chọn tin nổi bật',
         ];
     }

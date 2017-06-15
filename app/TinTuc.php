@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class TinTuc extends Model
 {
@@ -42,4 +43,77 @@ class TinTuc extends Model
     $tintuc = TinTuc::paginate(10);
     return $tintuc;
   }
+
+  public static function saveTinTuc($request)
+  {
+    $tintuc = new TinTuc;
+    $tintuc->TieuDe = $request->TieuDe;
+    $tintuc->TieuDeKhongDau = changeTitle($request->TieuDe);
+    $tintuc->TomTat = $request->TomTat;
+    $tintuc->NoiDung = $request->NoiDung;
+    $tintuc->NoiBat = $request->NoiBat;
+
+    if($request->hasFile('HinhAnh')) {
+      $file = $request->file('HinhAnh');
+      $name = $file->getClientOriginalName();
+
+      $ext = $file->getClientOriginalExtension();
+
+      if (file_exists('upload/tintuc')) {
+        $file->move('upload/tintuc', $name);
+      }
+      $tintuc->Hinh = $name;
+    } else {
+      $tintuc->Hinh = "";
+    }
+    $tintuc->idLoaiTin = $request->LoaiTin;
+    $tintuc->idUser = Auth::user()->id;;
+    $tintuc->save();
+  }
+
+  public static function updateTinTuc($request, $id)
+  {
+    $tintuc = TinTuc::find($id);
+    $tintuc->TieuDe = $request->TieuDe;
+    $tintuc->TieuDeKhongDau = changeTitle($request->TieuDe);
+    $tintuc->TomTat = $request->TomTat;
+    $tintuc->NoiDung = $request->NoiDung;
+    $tintuc->NoiBat = $request->NoiBat;
+
+    if($request->hasFile('HinhAnh')) {
+      $file = $request->file('HinhAnh');
+      $name = $file->getClientOriginalName();
+
+      //Xoá ảnh cũ 
+      @unlink('upload/tintuc/'.$tintuc->Hinh);
+
+      $ext = $file->getClientOriginalExtension();
+      if (file_exists('upload/tintuc')) {
+        $file->move('upload/tintuc', $name);
+      }
+      $tintuc->Hinh = $name;
+    } 
+    $tintuc->idLoaiTin = $request->LoaiTin;
+    $tintuc->save();
+  }
+
+  public static function deleteTinTuc($id)
+  {
+    $tintuc = TinTuc::find($id);
+    $tintuc->delete();
+    //Xoá ảnh
+    @unlink('upload/tintuc/'.$tintuc->Hinh);
+  }
+
+  public static function getTinTucByIdLoaiTin($id)
+  {
+    $tintuc = TinTuc::where('idLoaiTin', $id)->paginate(5);
+    return $tintuc;
+  }
 }
+
+
+
+
+
+

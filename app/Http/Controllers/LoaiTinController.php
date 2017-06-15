@@ -24,12 +24,7 @@ class LoaiTinController extends Controller
 
   public function store(LoaiTinRequest $request)
   {
-    $loaitin = new LoaiTin;
-    $loaitin->Ten = $request->Ten;
-    $loaitin->TenKhongDau = changeTitle($request->Ten);
-    $loaitin->idTheLoai = $request->TheLoai;
-    $loaitin->save();
-
+    LoaiTin::saveLoaiTin($request);
     return redirect()->route('admin.loaitin.create')->with('thongbao', 'Bạn đã thêm loại tin thành công');
   }
 
@@ -42,19 +37,12 @@ class LoaiTinController extends Controller
 
   public function update(LoaiTinRequest $request, $id)
   {
-    $loaitin = LoaiTin::find($id);
-    $loaitin->Ten = $request->Ten;
-    $loaitin->TenKhongDau = changeTitle($request->Ten);
-    $loaitin->idTheLoai = $request->TheLoai;
-
-    $loaitin->save();
+    LoaiTin::updateLoaiTin($request, $id);
     return redirect()->route('admin.loaitin.edit', [$id])->with('thongbao', 'Bạn đã sửa thành công');
   }
   public function destroy($id)
   {
-    $loaitin = LoaiTin::find($id);
-    $loaitin->delete();
-
+    LoaiTin::deleteLoaiTin($id);
     return redirect()->route('admin.loaitin.index')->with('thongbao', 'Xoá loại tin thành công');
   }
 }

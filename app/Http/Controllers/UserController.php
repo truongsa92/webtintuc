@@ -20,16 +20,7 @@ class UserController extends Controller
 
   public function store(UserRequest $request)
   {
-    $user = new User;
-    $user->name = $request->name;
-    $user->email = $request->email;
-    $user->password = bcrypt($request->password);
-    if ($request->has('levle')) {
-      $user->levle = $request->levle;
-    } else {
-      $user->levle = 0;
-    }
-    $user->save();
+    User::saveUser($request);
     return redirect()->route('admin.user.create')->with('thongbao', 'Thêm user thành công');
   }
 
@@ -41,9 +32,7 @@ class UserController extends Controller
 
   public function destroy($id)
   {
-    $user = User::find($id);
-    $user->delete();
-
+    User::deleteUser($id);
     return redirect()->route('admin.user.index')->with('thongbao', 'Xoá user thành công');
   }
 
@@ -55,12 +44,7 @@ class UserController extends Controller
 
   public function update(UserRequest $request, $id)
   {
-    $user = User::find($id);
-    $user->name = $request->name;
-    $user->email = $request->email;
-    $user->password = bcrypt($request->password);
-    $user->levle = $request->levle;
-    $user->save();
+    User::updateUser($request, $id);
     return redirect()->route('admin.user.edit', [$id])->with('thongbao', 'Sửa user thành công');
   }
 

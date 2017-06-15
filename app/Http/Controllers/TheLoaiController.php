@@ -22,11 +22,7 @@ class TheLoaiController extends Controller
 
   public function store(TheLoaiRequest $request)
   {
-    $theloai = new TheLoai;
-    $theloai->Ten = $request->ten;
-    $theloai->TenKhongDau = changeTitle($request->ten);
-    $theloai->save();
-
+    TheLoai::saveTheLoai($request);
     return redirect()->route('admin.theloai.create')->with('thongbao', 'Thêm thành công thể loại!');
   }
 
@@ -38,19 +34,13 @@ class TheLoaiController extends Controller
 
   public function update(TheLoaiRequest $request, $id)
   {
-    $theloai = TheLoai::find($id);
-    $theloai->Ten = $request->ten;
-    $theloai->TenKhongDau = changeTitle($request->ten);
-    $theloai->save();
-
+    TheLoai::updateTheLoai($request, $id);
     return redirect()->route('admin.theloai.edit', [$id])->with('thongbao', 'Sửa thành công thể loại');
   }
   
   public function destroy($id)
   {
-  	$theloai = TheLoai::find($id);
-  	$theloai->delete();
-
+  	TheLoai::deleteTheLoai($id);
   	return redirect()->route('admin.theloai.index')->with('thongbao', 'Xoá thành công thể loại!');
   }
 }

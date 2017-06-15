@@ -21,7 +21,6 @@ Route::post('admin/dangnhap', 'UserController@postDangNhapAdmin')->name('admin.l
 Route::get('admin/logout', 'UserController@getDangXuatAdmin')->name('admin.logout');
 
 
-
 Route::get('/', 'PagesController@trangchu')->name('home');
 Route::get('lienhe.html', 'PagesController@lienhe')->name('lienhe');
 Route::get('loaitin/{id}/{name}.html', 'PagesController@loaitin');
@@ -39,8 +38,8 @@ Route::post('dangki', 'PagesController@postDangKy')->name('user.register');
 
 Route::get('timkiem', 'PagesController@timkiem')->name('search');
 
-Route::get('newpost', 'PagesController@getNewPost')->name('user.post');
-Route::post('newpost', 'PagesController@postNewPost')->name('user.post');
+Route::get('newpost', 'PagesController@getNewPost')->name('user.post')->middleware('userLogin');
+Route::post('newpost', 'PagesController@postNewPost')->name('user.post')->middleware('userLogin');
 Route::get('loaitin/{idTheLoai}', 'AjaxController@getLoaiTin');
 
 Route::get('resetpassword', 'PagesController@getResetPassword');

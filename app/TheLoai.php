@@ -17,4 +17,26 @@ class TheLoai extends Model
   {
   	return $this->hasManyThrough('App\TinTuc', 'App\LoaiTin', 'idTheLoai', 'idLoaiTin', 'id');
   }
+
+  public static function saveTheLoai($request)
+  {
+  	$theloai = new TheLoai;
+    $theloai->Ten = $request->ten;
+    $theloai->TenKhongDau = changeTitle($request->ten);
+    $theloai->save();
+  }
+
+  public static function updateTheLoai($request, $id)
+  {
+  	$theloai = TheLoai::find($id);
+    $theloai->Ten = $request->ten;
+    $theloai->TenKhongDau = changeTitle($request->ten);
+    $theloai->save();
+  }
+
+  public static function deleteTheLoai($id)
+  {
+  	$theloai = TheLoai::find($id);
+  	$theloai->delete();
+  }
 }

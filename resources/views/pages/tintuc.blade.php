@@ -14,7 +14,7 @@
 
             <!-- Author -->
             <p class="lead">
-                by <a href="#">admin</a>
+                by <a href="#">{{$tacgia}}</a>
             </p>
 
             <!-- Preview Image -->
