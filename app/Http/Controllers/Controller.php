@@ -16,6 +16,7 @@ class Controller extends BaseController
 
   function __construct()
   {
+    //Test commit
     $baseSrc = 'upload/tintuc/';
     view()->share('baseSrc', $baseSrc);
 
