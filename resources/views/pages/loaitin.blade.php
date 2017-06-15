@@ -15,7 +15,7 @@
                         <div class="col-md-3">
                             <a href="{{route('tintuc', [$tt->id, $tt->TieuDeKhongDau])}}">
                                 <br>
-                                <img width="200px" height="200px" class="img-responsive" src="upload/tintuc/{{$tt->Hinh}}" alt="">
+                                <img width="200px" height="200px" class="img-responsive" src="{{$baseSrc}}{{$tt->Hinh}}" alt="">
                             </a>
                         </div>
 
