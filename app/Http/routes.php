@@ -23,8 +23,8 @@ Route::get('admin/logout', 'UserController@getDangXuatAdmin')->name('admin.logou
 
 Route::get('/', 'PagesController@trangchu')->name('home');
 Route::get('lienhe.html', 'PagesController@lienhe')->name('lienhe');
-Route::get('loaitin/{id}/{name}.html', 'PagesController@loaitin');
-Route::get('tintuc/{id}/{name}.html', 'PagesController@tintuc');
+Route::get('loaitin/{id}/{name}.html', 'PagesController@loaitin')->name('loaitin');
+Route::get('tintuc/{id}/{name}.html', 'PagesController@tintuc')->name('tintuc');
 
 //User đăng nhập
 Route::get('dangnhap', 'PagesController@getDangNhap')->name('user.login');

@@ -71,12 +71,12 @@
                     <!-- item -->
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-md-5">
-                            <a href="tintuc/{{$tlq->id}}/{{$tlq->TieuDeKhongDau}}.html">
+                            <a href="{{route('tintuc', [$tlq->id, $tlq->TieuDeKhongDau])}}">
                                 <img class="img-responsive" src="upload/tintuc/{{$tlq->Hinh}}" alt="">
                             </a>
                         </div>
                         <div class="col-md-7">
-                            <a href="tintuc/{{$tlq->id}}/{{$tlq->TieuDeKhongDau}}.html"><b>{{$tlq->TieuDe}}</b></a>
+                            <a href="{{route('tintuc', [$tlq->id, $tlq->TieuDeKhongDau])}}"><b>{{$tlq->TieuDe}}</b></a>
                         </div>
                         <p>{{$tlq->TomTat}}</p>
                         <div class="break"></div>
@@ -93,12 +93,12 @@
                     <!-- item -->
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-md-5">
-                             <a href="tintuc/{{$tnb->id}}/{{$tnb->TieuDeKhongDau}}.html">
+                             <a href="{{route('tintuc', [$tnb->id, $tnb->TieuDeKhongDau])}}">
                                 <img class="img-responsive" src="upload/tintuc/{{$tnb->Hinh}}" alt="">
                             </a>
                         </div>
                         <div class="col-md-7">
-                            <a href="tintuc/{{$tnb->id}}/{{$tnb->TieuDeKhongDau}}.html"><b>{{$tnb->TieuDe}}</b></a>
+                            <a href="{{route('tintuc', [$tnb->id, $tnb->TieuDeKhongDau])}}"><b>{{$tnb->TieuDe}}</b></a>
                         </div>
                         <p>{{$tnb->TomTat}}</p>
                         <div class="break"></div>

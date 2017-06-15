@@ -13,7 +13,7 @@
                 @foreach($tintuc as $tt)
                     <div class="row-item row">
                         <div class="col-md-3">
-                            <a href="tintuc/{{$tt->id}}/{{$tt->TieuDeKhongDau}}.html">
+                            <a href="{{route('tintuc', [$tt->id, $tt->TieuDeKhongDau])}}">
                                 <br>
                                 <img width="200px" height="200px" class="img-responsive" src="upload/tintuc/{{$tt->Hinh}}" alt="">
                             </a>
@@ -22,7 +22,7 @@
                         <div class="col-md-9">
                             <h3>{{$tt->TieuDe}}</h3>
                             <p>{!! $tt->TomTat !!}</p>
-                            <a class="btn btn-primary" href="tintuc/{{$tt->id}}/{{$tt->TieuDeKhongDau}}.html">Xem thêm<span class="glyphicon glyphicon-chevron-right"></span></a>
+                            <a class="btn btn-primary" href="{{route('tintuc', [$tt->id, $tt->TieuDeKhongDau])}}">Xem thêm<span class="glyphicon glyphicon-chevron-right"></span></a>
                         </div>
                         <div class="break"></div>
                     </div>

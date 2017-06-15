@@ -22,7 +22,7 @@
                 {{session('thongbao')}}
             </div>
           @endif
-		    	<form action="dangnhap" method="POST">
+		    	<form action="{{route('user.login')}}" method="POST">
 					<div>
 		    			<label>Email</label>
 					  	<input type="text" class="form-control" placeholder="Email" name="email" 

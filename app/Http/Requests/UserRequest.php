@@ -23,12 +23,29 @@ class UserRequest extends Request
      */
     public function rules()
     {   
-        return [
-           'name'           => 'required|min:3',
-            'email'         => "required|email|unique:users,email,$this->id",
-            'password'      => 'required|min:6',
-            'passwordAgain' => 'required|same:password',
-        ];
+        if(isset($this->check)) {
+            if(isset($this->changePassword)) {
+                return [
+                   'name'           => 'required|min:3',
+                    'email'         => "required|email|unique:users,email,$this->id",
+                    'password'      => 'required|min:6',
+                    'passwordAgain' => 'required|same:password',
+                ];
+            } else {
+                return [
+                   'name'           => 'required|min:3',
+                    'email'         => "required|email|unique:users,email,$this->id",
+                ];
+            }
+        } else {
+            return [
+               'name'           => 'required|min:3',
+                'email'         => "required|email|unique:users,email,$this->id",
+                'password'      => 'required|min:6',
+                'passwordAgain' => 'required|same:password',
+            ];
+        }
+        
     }
 
     public function messages()

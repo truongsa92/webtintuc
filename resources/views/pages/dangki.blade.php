@@ -25,7 +25,7 @@
                   {{session('thongbao')}}
               </div>
           @endif
-		    	<form method="POST" action="dangki">
+		    	<form method="POST" action="{{route('user.register')}}">
 		    		<div>
 		    			<label>Họ tên</label>
 					  	<input type="text" class="form-control" placeholder="Username" name="name" aria-describedby="basic-addon1">

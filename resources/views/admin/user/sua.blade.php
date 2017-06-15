@@ -24,7 +24,7 @@
                                 {{session('thongbao')}}
                             </div>
                         @endif
-                        <form action="{{route('admin.user.update', $user->id)}}" method="POST" enctype="multipart/form-data">
+                        <form action="{{route('admin.user.update', $user->id)}}" method="POST">
                             <div class="form-group">
                                 <label>Name</label>
                                 <input class="form-control" value="{{$user->name}}" name="name" placeholder="Nhập tên người dùng" />
@@ -68,7 +68,7 @@
                             <input type="hidden" name="id" value="{{$user->id}}">
                             <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
-                            <button type="submit" class="btn btn-default">Add</button>
+                            <button type="submit" class="btn btn-default">Edit</button>
                             <button type="reset" class="btn btn-default">Reset</button>
                         <form>
                     </div>
@@ -77,17 +77,4 @@
             </div>
             <!-- /.container-fluid -->
         </div>
-@endsection
-
-@section('script')
-    <script>
-        $(document).ready(function(){
-            $("#TheLoai").change(function() {
-                let idTheLoai = $(this).val()
-                $.get("admin/ajax/loaitin/" + idTheLoai, function(data) {
-                    $("#LoaiTin").html(data)
-                });
-            })
-        })
-    </script>
 @endsection

@@ -25,15 +25,15 @@
                   {{session('thongbao')}}
               </div>
           @endif
-		    	<form method="POST" action="user">
+		    	<form method="POST" action="{{route('user.edit')}}">
 		    		<div>
 		    			<label>Họ tên</label>
-					  	<input type="text" value="{{$user->name or ''}}" class="form-control" placeholder="Username" name="name" aria-describedby="basic-addon1">
+					  	<input type="text" value="{{$user->name}}" class="form-control" placeholder="Username" name="name" aria-describedby="basic-addon1">
 					</div>
 					<br>
 					<div>
 		    			<label>Email</label>
-					  	<input type="email" value="{{$user->email or ''}}" class="form-control" placeholder="Email" name="email" aria-describedby="basic-addon1"
+					  	<input type="email" value="{{$user->email}}" class="form-control" placeholder="Email" name="email" aria-describedby="basic-addon1"
 					  	readonly 
 					  	>
 					</div>
@@ -49,6 +49,8 @@
 					  	<input type="password" class="form-control password" name="passwordAgain" aria-describedby="basic-addon1" disabled>
 					</div>
 					<br>
+					<input type="hidden" name="id" value="{{$user->id}}">
+					<input type="hidden" name="check" value="ok">
 					<input type="hidden" name="_token" value="{{csrf_token()}}">
 					<button type="submit" class="btn btn-default">Sửa
 					</button>

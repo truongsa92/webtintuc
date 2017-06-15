@@ -84,36 +84,9 @@ class PagesController extends Controller
     return view('pages.user');
   }
 
-  public function postUser(Request $request)
+  public function postUser(UserRequest $request)
   {
-    $this->validate($request,
-      [
-        'name'          => 'required|min:3',
-      ],
-      [
-        'name.required'          => 'Bạn chưa nhập tên người dùng',
-        'name.min'               => 'Tên người dùng phải >=3 kí tự',
-      ]
-    );
-    $user = Auth::user();
-    $user->name = $request->name;
-    if($request->changePassword === 'on')    
-    {
-      $this->validate($request,
-        [
-          'password'      => 'required|min:6',
-          'passwordAgain' => 'required|same:password'
-        ],
-        [
-          'password.required'      => 'Bạn chưa nhập mật khẩu',
-          'password.min'           => 'Mật khẩu phải >= 6 kí tự',
-          'passwordAgain.required' => 'Bạn chưa nhập lại mật khẩu',
-          'passwordAgain.same'     => 'Mật khẩu nhập lại không trùng khớp',
-        ]
-      );
-      $user->password = bcrypt($request->password);
-    }
-    $user->save();
+    User::updateUser($request, $request->id);
     return redirect()->route('user.edit')->with('thongbao', 'Sửa thông tin thành công');
   }
 
@@ -129,8 +102,7 @@ class PagesController extends Controller
 
   public function timkiem(Request $request)
   { 
-    $keyword = $request->keyword;
-    $tintuc = TinTuc::searchTinTuc($keyword);
+    $tintuc = TinTuc::searchTinTuc($request->keyword);
     return view('pages.timkiem', ['tintuc' => $tintuc, 'keyword' => $keyword]);
   }
 

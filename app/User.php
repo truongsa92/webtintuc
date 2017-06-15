@@ -47,8 +47,12 @@ class User extends Authenticatable
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->levle = $request->levle;
+        if($request->has('password')) {
+          $user->password = bcrypt($request->password);
+        }
+        if($request->has('levle')) {
+          $user->levle = $request->levle;
+        }
         $user->save();
     }
 
