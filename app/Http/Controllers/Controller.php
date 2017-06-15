@@ -16,6 +16,9 @@ class Controller extends BaseController
 
   function __construct()
   {
+    $baseSrc = 'upload/tintuc/';
+    view()->share('baseSrc', $baseSrc);
+
   	$this->checkLogin();
   }
 

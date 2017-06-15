@@ -67,7 +67,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Hình Ảnh</label>
-                                <img width="400px" src="upload/tintuc/{{$tintuc->Hinh}}">
+                                <img width="400px" src="{{$baseSrc}}{{$tintuc->Hinh}}">
                                 <input type="file" class="form-control" name="HinhAnh" id="HinhAnh"/>
                             </div>
                             <div class="form-group">
