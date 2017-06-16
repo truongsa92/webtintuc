@@ -12,4 +12,9 @@ return [
       'en' => 'English',
       'vi' => 'Tiếng Việt',
     ],
+    'login.fail' => 'Đăng nhập không thành công',
+    'password' => 'Mật khẩu',
+    'password.forget' => 'Quên Mật khẩu',
+    'password.placeholder' => 'Nhập password',
+    'email.placeholder' => 'Nhập email',
 ];

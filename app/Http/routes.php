@@ -16,9 +16,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminLogin'], function() {
 });
 
 //Trang đăng nhập admin
-Route::get('admin/dangnhap', 'UserController@getDangNhapAdmin')->name('admin.login')->middleware('switcherLang');
-Route::post('admin/dangnhap', 'UserController@postDangNhapAdmin')->name('admin.login')->middleware('switcherLang');;
-Route::get('admin/logout', 'UserController@getDangXuatAdmin')->name('admin.logout')->middleware('switcherLang');
+Route::get('admin/dangnhap', 'UserController@getDangNhapAdmin')->name('admin.login');
+Route::post('admin/dangnhap', 'UserController@postDangNhapAdmin')->name('admin.login');
+Route::get('admin/logout', 'UserController@getDangXuatAdmin')->name('admin.logout');
 
 
 Route::get('/', 'PagesController@trangchu')->name('home')->middleware('switcherLang');
@@ -47,4 +47,4 @@ Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail')->mid
 Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm')->middleware('switcherLang');
 Route::post('password/reset', 'Auth\PasswordController@reset')->middleware('switcherLang');
 
-Route::post('lang', 'LanguageController@postLang')->name('changeLang')->middleware('switcherLang');
+Route::post('lang', 'LanguageController@postLang')->name('changeLang');

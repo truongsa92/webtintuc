@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <base href="{{asset('')}}">
-    <title>{{trans('label.webname')}} | @yield('title')</title>
+    <title>{{trans('label.webname')}}</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">

@@ -71,7 +71,7 @@ class PagesController extends Controller
     {
       return redirect()->route('home');
     } else {
-      return redirect()->route('user.login')->with('thongbao', 'Đăng nhập không thành công');
+      return redirect()->route('user.login')->with('thongbao', trans('label.login.fail'));
     }
   }
 
