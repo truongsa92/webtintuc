@@ -49,7 +49,7 @@ class PagesController extends Controller
   	$tintuc = TinTuc::find($id);
     $tacgia = $tintuc->user->name;
   	$tinNoiBat = TinTuc::getTinNoiBat($id);
-  	$tinLienQuan = TinTUc::getTinLienQuan($id);
+  	$tinLienQuan = TinTuc::getTinLienQuan($id);
   	return view('pages.tintuc', 
   		[
         'tacgia'       => $tacgia,  

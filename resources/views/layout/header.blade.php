@@ -9,38 +9,38 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{route('home')}}">Web Tin Tức</a>
+                <a class="navbar-brand" href="{{route('home')}}">{{trans('label.webname')}}</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Giới thiệu</a>
+                        <a href="#">{{trans('label.about')}}</a>
                     </li>
                     <li>
-                        <a href="{{route('lienhe')}}">Liên hệ</a>
+                        <a href="{{route('lienhe')}}">{{trans('label.contact')}}</a>
                     </li>
                 </ul>
 
                 <form action="{{route('search')}}" method="GET" class="navbar-form navbar-left" role="search">
 			        <div class="form-group">
-			          <input type="text" class="form-control" placeholder="Tìm kiếm" name="keyword">
+			          <input type="text" class="form-control" placeholder="{{trans('label.search')}}" name="keyword">
 			        </div>
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
-			        <button type="submit" class="btn btn-default">Tìm kiếm</button>
+			        <button type="submit" class="btn btn-default">{{trans('label.search')}}</button>
 			    </form>
 
 			    <ul class="nav navbar-nav pull-right">
                     @if(!isset($user))
                         <li>
-                            <a href="{{route('user.register')}}">Đăng ký</a>
+                            <a href="{{route('user.register')}}">{{trans('label.register')}}</a>
                         </li>
                         <li>
-                            <a href="{{route('user.login')}}">Đăng nhập</a>
+                            <a href="{{route('user.login')}}">{{trans('label.login')}}</a>
                         </li>
                     @else
                         <li>
-                            <a href="{{route('user.post')}}">Post bài viết</a>
+                            <a href="{{route('user.post')}}">{{trans('label.new')}}</a>
                         </li>
                         <li>
                         	<a href="{{route('user.edit')}}">
@@ -50,14 +50,11 @@
                         </li>
 
                         <li>
-                        	<a href="{{route('user.logout')}}">Đăng xuất</a>
+                        	<a href="{{route('user.logout')}}">{{trans('label.logout')}}</a>
                         </li>
                     @endif
                 </ul>
-            </div>
-
-
-            
+            </div>          
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->

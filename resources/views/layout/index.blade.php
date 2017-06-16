@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <base href="{{asset('')}}">
-    <title>Web Tin tức | @yield('title')</title>
+    <title>{{trans('label.webname')}} | @yield('title')</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -29,7 +29,13 @@
 
 <body>
 	@include('layout.header')
-  
+  <form action="{{route('changeLang')}}" class="form-lang" method="post">
+                <select name="locale" onchange='this.form.submit();'>
+                  <option value="en" {{ Lang::locale() === 'en' ? 'selected' : '' }}>en</option>
+                  <option value="vn" {{ Lang::locale() === 'vn' ? 'selected' : '' }}>vn</option>
+                </select>
+                {{ csrf_field() }}
+            </form>
   @yield('content') 
 
   @include('layout.footer')
