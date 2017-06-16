@@ -28,13 +28,13 @@ class UserLoginRequest extends Request
             'password'      => 'required|min:6',
         ];
     }
-    public function messages()
-    {
-        return [
-            'email.required'         => 'Bạn chưa nhập email',
-            'email.min'              => 'Email quá ngắn',
-            'password.required'      => 'Bạn chưa nhập mật khẩu',
-            'password.min'           => 'Mật khẩu phải >= 6 kí tự',
-        ];
-    }
+    // public function messages()
+    // {
+    //     return [
+    //         'email.required'         => 'Bạn chưa nhập email',
+    //         'email.min'              => 'Email quá ngắn',
+    //         'password.required'      => 'Bạn chưa nhập mật khẩu',
+    //         'password.min'           => 'Mật khẩu phải >= 6 kí tự',
+    //     ];
+    // }
 }
