@@ -14,6 +14,8 @@ use App\LoaiTin;
 use App\TinTuc;
 use App\User;
 use Redis;
+use DB;
+use Cache;
 
 class PagesController extends Controller
 {
@@ -32,6 +34,19 @@ class PagesController extends Controller
 
   public function trangchu()
   {
+    DB::enableQueryLog();
+    
+    $news = TinTuc::fetAll();
+
+
+    $log = DB::getQueryLog();
+
+    print_r($log);
+    // $popular = $this::$redis->zRevRange('newViews', 0, -1);
+    // foreach ($popular as $value) {
+    //   $id = str_replace('new', '', $value);
+    //   echo 'New '.$id .'</br>';
+    // }
   	return view('pages.trangchu');
   }
 

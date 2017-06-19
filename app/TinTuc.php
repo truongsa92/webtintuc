@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Cache;
 
 class TinTuc extends Model
 {
@@ -109,6 +110,15 @@ class TinTuc extends Model
   {
     $tintuc = TinTuc::where('idLoaiTin', $id)->paginate(5);
     return $tintuc;
+  }
+
+  public static function fetAll()
+  {
+    $result = Cache::remember('new_cache', 1, function ()
+    {
+      return TinTuc::alL();
+    });
+    return $result;
   }
 }
 
