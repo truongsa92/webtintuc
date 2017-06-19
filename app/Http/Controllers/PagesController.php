@@ -13,11 +13,14 @@ use App\TheLoai;
 use App\LoaiTin;
 use App\TinTuc;
 use App\User;
+use Redis;
 
 class PagesController extends Controller
 {
+  protected static $redis;
 	function __construct()
 	{
+    $this::$redis = Redis::connection();
   	$theloai = TheLoai::all();
     $baseSrc = 'upload/tintuc/';
   	view()->share('theloai', $theloai);
@@ -46,6 +49,23 @@ class PagesController extends Controller
 
   public function tintuc($id, $name)
   {
+    $this->id = $id;
+    if ($this::$redis->zScore('newViews', 'new:'.$this->id))
+    {
+      $this::$redis->pipeline(function ($pipe)
+      {
+        $pipe->zIncrBy('newViews', 1, 'new:'.$this->id);
+        $pipe->incr('new:'.$this->id.':views');
+      });
+    } 
+    else
+    {
+      $views = $this::$redis->incr('new:'.$this->id.':views');
+      $this::$redis->zIncrBy('newViews', $views, 'new:'.$this->id);
+    }
+    $views = $this::$redis->get('new:'.$this->id.':views');
+    echo 'new: '.$id.  ' - '.$views;
+
   	$tintuc = TinTuc::find($id);
     $tacgia = $tintuc->user->name;
   	$tinNoiBat = TinTuc::getTinNoiBat($id);
