@@ -39,4 +39,13 @@ class TheLoai extends Model
   	$theloai = TheLoai::find($id);
   	$theloai->delete();
   }
+
+  public static function convertToArrayTypeKeyValueTheLoai($allTheLoai)
+  { 
+    $theloai = [];
+    foreach ($allTheLoai as $key => $value) {
+      $theloai[$value->id] = $value->Ten;
+    }
+    return $theloai;
+  }
 }

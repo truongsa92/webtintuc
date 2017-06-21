@@ -24,75 +24,51 @@
                                 {{session('thongbao')}}
                             </div>
                         @endif
-                        <form action="{{route('admin.tintuc.update', $tintuc->id)}}" method="POST" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label>Thể loại</label>
-                                <select class="form-control" name="TheLoai" id="TheLoai">
-                                    @foreach($theloai as $tl)
-                                        <option 
-                                        @if($tl->id === $idTheLoaiSelected)
-                                            {{"selected"}}
-                                        @endif
-                                        value="{{$tl->id}}">{{$tl->Ten}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Loại tin</label>
-                                <select class="form-control" name="LoaiTin" id="LoaiTin">
-                                    @foreach($loaitin as $lt)
-                                        <option
-                                        @if($lt->id === $tintuc->idLoaiTin)
-                                            {{"selected"}}
-                                        @endif
-                                        value="{{$lt->id}}">{{$lt->Ten}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Tiêu Đề</label>
-                                <input class="form-control" name="TieuDe" value="{{$tintuc->TieuDe}}" placeholder="Nhập tên Tiêu Đề" />
-                            </div>
-                            <div class="form-group">
-                                <label>Nội Dung</label>
-                                <textarea class="form-control" name="NoiDung" rows="4" cols="50">
-                                    {{$tintuc->NoiDung}}
-                                </textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Tóm tắt</label>
-                                <textarea class="form-control" name="TomTat" rows="4" cols="50">
-                                    {{$tintuc->TomTat}}
-                                </textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Hình Ảnh</label>
-                                <img width="400px" src="{{$baseSrc}}{{$tintuc->Hinh}}">
-                                <input type="file" class="form-control" name="HinhAnh" id="HinhAnh"/>
-                            </div>
-                            <div class="form-group">
-                                <label>Nổi bật</label>
-                                <div class="radio">
 
-                                  <label><input type="radio" value="1" name="NoiBat"
-                                    @if($tintuc->NoiBat === 1)
-                                        {{"checked"}}
-                                    @endif
-                                  >Có</label>
-                                </div>
-                                <div class="radio">
-                                  <label><input type="radio" value="0" name="NoiBat"
-                                    @if($tintuc->NoiBat === 0)
-                                        {{"checked"}}
-                                    @endif
-                                  >Không</label>
-                                </div>
-                            </div>
-                            <input type="hidden" name="_method" value="PUT">
-                            <input type="hidden" name="_token" value="{{csrf_token()}}">
-                            <button type="submit" class="btn btn-default">Edit</button>
-                            <button type="reset" class="btn btn-default">Reset</button>
-                        <form>
+                        {!! Form::open(['route' => ['admin.tintuc.update', $tintuc->id], 'method' => 'PUT',
+                            'files' => true ]) !!}
+                            {!! Form::label('TheLoai', 'Thể loại') !!}
+                            {!! Form::select('TheLoai', $theloai, $idTheLoaiSelected, ['class' => 'form-control'] ) !!}
+                            {!! Form::label('LoaiTin', 'Loại Tin') !!}
+                            {!! Form::select('LoaiTin', $loaitin, $idLoaiTinSelected, ['class' => 'form-control'] ) !!}
+
+                            {!! Form::label('TieuDe', 'Tiêu đề') !!}
+                            {!! Form::text('TieuDe', $tintuc->TieuDe, 
+                                                array_merge(
+                                                    ['class' => 'form-control'], 
+                                                                $attributes = [
+                                                                    'Placeholder' => 'Nhập tên tiêu đề',
+                                                                ]
+                                                            )
+                                                        ) !!}
+                            {!! Form::label('NoiDung', 'Nội dung') !!}
+                            {!! Form::textarea('NoiDung', $tintuc->NoiDung, 
+                                                array_merge(
+                                                    ['class' => 'form-control'], 
+                                                                $attributes = [
+                                                                    'Placeholder' => 'Nhập nội dung',
+                                                                ]
+                                                            )
+                                                        ) !!}
+                            {!! Form::label('TomTat', 'Tóm tắt') !!}
+                            {!! Form::textarea('TomTat', $tintuc->TomTat, 
+                                                array_merge(
+                                                    ['class' => 'form-control'], 
+                                                                $attributes = [
+                                                                    'Placeholder' => 'Nhập tóm tắt',
+                                                                ]
+                                                            )
+                                                        ) !!}
+                            {!! Form::label('HinhAnh', 'Hình ảnh') !!}
+                            <img width="400px" src="{{$baseSrc}}{{$tintuc->Hinh}}">
+                            {!! Form::file('HinhAnh', $attributes = [] ) !!}
+
+                            {{ Form::radio('NoiBat', '1',$tintuc->NoiBat === 1 ? true : '') }} Có<br>
+                            {{ Form::radio('NoiBat', '0',$tintuc->NoiBat === 0 ? true : '') }} Không<br>
+
+                            {!! Form::submit('Edit', ['class' => 'btn btn-default']) !!} 
+                             {!! Form::submit('Reset', ['class' => 'btn btn-default']) !!}   
+                        {!! Form::close() !!}
                     </div>
                 </div>
                 <!-- /.row -->

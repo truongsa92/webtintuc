@@ -40,5 +40,14 @@ class LoaiTin extends Model
   	$loaitin = LoaiTin::find($id);
     $loaitin->delete();
   }
+
+  public static function convertToArrayTypeKeyValueLoaiTin($allLoaiTin)
+  {
+    $loaitin = [];
+    foreach ($allLoaiTin as $key => $value) {
+      $loaitin[$value->id] = $value->Ten;
+    }
+    return $loaitin;
+  }
 }
 

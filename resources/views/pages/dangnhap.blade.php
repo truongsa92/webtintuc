@@ -22,23 +22,27 @@
                 {{session('thongbao')}}
             </div>
           @endif
-		    	<form action="{{route('user.login')}}" method="POST">
-					<div>
-		    			<label>Email</label>
-					  	<input type="text" class="form-control" placeholder="{{trans('label.email.placeholder')}}" name="email" 
-					  	>
-					</div>
-					<br>	
-					<div>
-		    			<label>{{trans('label.password')}}</label>
-					  	<input type="password" class="form-control" placeholder="{{trans('label.password.placeholder')}}" name="password">
-					</div>
-					<br>
-					<input type="hidden" name="_token" value="{{csrf_token()}}">
-					<button type="submit" class="btn btn-default">{{trans('label.login')}}
-					</button> 
+
+		    	{!! Form::open(['route' => 'user.login', 'method' => 'POST'], ['class' => 'form-control']) !!}
+						{!! Form::label('email', 'Email Address', ['class' => 'form-control']) !!}
+						{{ Form::text('email', '', 
+							array_merge(
+								['class' => 'form-control'], 
+								$attributes = [
+									'Placeholder' => trans('label.email.placeholder')
+								]
+							)
+							) }}
+						{!! Form::label('password', 'Password', ['class' => 'form-control']) !!}
+						{!! Form::password('password', 
+															[
+																'class' => 'form-control', 
+															 	'Placeholder' => trans('label.password.placeholder')
+															]) !!}
+						{!! Form::submit(trans('label.login'), ['class' => 'btn btn-default']) !!}
+					{!! Form::close() !!}
 					<a style="color: green" href="resetpassword">{{trans('label.password.forget')}}</a>
-		    	</form>
+
 		  	</div>
 		</div>
         </div>
@@ -46,4 +50,5 @@
     </div>
     <!-- end slide -->
 </div>
+
 @endsection

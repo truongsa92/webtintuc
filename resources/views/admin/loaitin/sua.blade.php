@@ -24,30 +24,22 @@
                                 {{session('thongbao')}}
                             </div>
                         @endif
-                        
-                        <form action="{{route('admin.loaitin.update', $loaitin->id)}}" method="POST">
-                            <div class="form-group">
-                                <label>Thể loại</label>
-                                <select class="form-control" name="TheLoai">
-                                    @foreach($theloai as $tl)
-                                        <option
-                                        @if($loaitin->idTheLoai === $tl->id)
-                                            {{"selected"}}
-                                        @endif
-                                         value="{{$tl->id}}">{{$tl->Ten}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Tên loại tin</label>
-                                <input class="form-control" name="Ten" placeholder="Nhập tên loại tin" 
-                                value="{{$loaitin->Ten}}"/>
-                            </div>
-                            <input type="hidden" name="_method" value="PUT">
-                            <input type="hidden" name="_token" value="{{csrf_token()}}">
-                            <button type="submit" class="btn btn-default">Edit</button>
-                            <button type="reset" class="btn btn-default">Reset</button>
-                        <form>
+                        {!! Form::open(['route' => ['admin.loaitin.update', $loaitin->id], 'method' => 'PUT']) !!}
+                            {!! Form::label('TheLoai', 'Thể loại') !!}
+                            {!! Form::select('TheLoai', $tl, $idTheLoai, ['class' => 'form-control'] ) !!}
+
+                            {!! Form::label('Ten', 'Tên loại tin') !!}
+                            {!! Form::text('Ten', $loaitin->Ten, 
+                                                array_merge(
+                                                    ['class' => 'form-control'], 
+                                                                $attributes = [
+                                                                    'Placeholder' => 'Nhập tên loại tin',
+                                                                ]
+                                                            )
+                                                        ) !!}
+                            {!! Form::submit('Edit', ['class' => 'btn btn-default']) !!}   
+                            {!! Form::reset('Reset', ['class' => 'btn btn-default']) !!}       
+                        {!! Form::close() !!}
                     </div>
                 </div>
                 <!-- /.row -->

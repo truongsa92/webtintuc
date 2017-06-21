@@ -15,7 +15,6 @@ use App\TinTuc;
 use App\User;
 use Redis;
 use DB;
-use Cache;
 
 class PagesController extends Controller
 {
@@ -34,18 +33,18 @@ class PagesController extends Controller
 
   public function trangchu()
   {
-    DB::enableQueryLog();
+    // DB::enableQueryLog();
     
-    $news = TinTuc::fetAll();
+    // $news = TinTuc::fetAll();
 
-
-    $log = DB::getQueryLog();
-
-    print_r($log);
-    // $popular = $this::$redis->zRevRange('newViews', 0, -1);
-    // foreach ($popular as $value) {
-    //   $id = str_replace('new', '', $value);
-    //   echo 'New '.$id .'</br>';
+    // $log = DB::getQueryLog();
+    
+    // print_r($log);
+    
+    // $popular = $this::$redis->zRevRange('newViews', 0, -1, ['withscores' => true]);
+    // foreach ($popular as $key => $value) {
+    //   $id = str_replace('new', '', $key);
+    //   echo 'New'.$id.'-'.$value.'view</br>';
     // }
   	return view('pages.trangchu');
   }
@@ -79,7 +78,7 @@ class PagesController extends Controller
       $this::$redis->zIncrBy('newViews', $views, 'new:'.$this->id);
     }
     $views = $this::$redis->get('new:'.$this->id.':views');
-    echo 'new: '.$id.  ' - '.$views;
+    echo 'new:'.$id.  ' - '.$views;
 
   	$tintuc = TinTuc::find($id);
     $tacgia = $tintuc->user->name;
@@ -140,7 +139,7 @@ class PagesController extends Controller
   public function timkiem(Request $request)
   { 
     $tintuc = TinTuc::searchTinTuc($request->keyword);
-    return view('pages.timkiem', ['tintuc' => $tintuc, 'keyword' => $keyword]);
+    return view('pages.timkiem', ['tintuc' => $tintuc, 'keyword' => $request->keyword]);
   }
 
   public function getNewPost()

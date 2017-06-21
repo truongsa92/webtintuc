@@ -25,37 +25,44 @@
                   {{session('thongbao')}}
               </div>
           @endif
-		    	<form method="POST" action="{{route('user.edit')}}">
-		    		<div>
-		    			<label>Họ tên</label>
-					  	<input type="text" value="{{$user->name}}" class="form-control" placeholder="Username" name="name" aria-describedby="basic-addon1">
-					</div>
-					<br>
-					<div>
-		    			<label>Email</label>
-					  	<input type="email" value="{{$user->email}}" class="form-control" placeholder="Email" name="email" aria-describedby="basic-addon1"
-					  	readonly 
-					  	>
-					</div>
-					<br>	
-					<div>
-						<input type="checkbox" class="" name="changePassword" id="changePassword">
-		    			<label>Đổi mật khẩu</label>
-					  	<input type="password" class="form-control password" name="password" aria-describedby="basic-addon1" disabled>
-					</div>
-					<br>
-					<div>
-		    			<label>Nhập lại mật khẩu</label>
-					  	<input type="password" class="form-control password" name="passwordAgain" aria-describedby="basic-addon1" disabled>
-					</div>
-					<br>
-					<input type="hidden" name="id" value="{{$user->id}}">
-					<input type="hidden" name="check" value="ok">
-					<input type="hidden" name="_token" value="{{csrf_token()}}">
-					<button type="submit" class="btn btn-default">Sửa
-					</button>
-
-		    	</form>
+          {!! Form::open(['route' => 'user.edit', 'method' => 'POST']) !!}
+          	{!! Form::label('name', 'Họ tên') !!}
+          	{!! Form::text('name', $user->name, 
+          									array_merge(
+          										['class' => 'form-control'], 
+															$attributes = [
+																'Placeholder' => trans('Username')
+															]
+														)
+													) !!}
+						{!! Form::label('email', 'Email') !!}
+						{!! Form::text('email', $user->email, 
+          									array_merge(
+          										['class' => 'form-control'], 
+															$attributes = [
+																'readonly' => true,
+															]
+														)
+													) !!}
+						{!! Form::checkbox('changePassword', '', false, ['id' => 'changePassword']) !!}
+						{!! Form::label('changePassword', 'Đổi mật khẩu') !!}
+						{!! Form::password('password', 
+          									[
+          										'class' => 'form-control password',
+															'disabled' => true,
+														]
+													) !!}
+						{!! Form::label('passwordAgain') !!}
+						{!! Form::password('passwordAgain', 
+          									[
+          										'class' => 'form-control password',
+															'disabled' => true,
+														]
+													) !!}
+						{!! Form::hidden('id', $user->id) !!}
+						{!! Form::hidden('check', 'ok') !!}
+						{!! Form::submit('Sửa', ['class' => 'btn btn-default']) !!}		
+          {!! Form::close() !!}
 		  	</div>
 		</div>
         </div>

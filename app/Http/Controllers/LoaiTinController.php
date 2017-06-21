@@ -29,10 +29,19 @@ class LoaiTinController extends Controller
   }
 
   public function edit($id)
-  {
+  { 
+
     $loaitin = LoaiTin::find($id);
+    $idTheLoai = $loaitin->theloai->id;
+
     $theloai = TheLoai::all();
-    return view('admin.loaitin.sua', ['loaitin' => $loaitin, 'theloai' => $theloai]);
+    //build lại mảng theo dạng key value
+    $tl = TheLoai::convertToArrayTypeKeyValueTheLoai($theloai);
+    return view('admin.loaitin.sua', [
+      'loaitin' => $loaitin, 
+      'tl' => $tl,
+      'idTheLoai' => $idTheLoai,
+    ]);
   }
 
   public function update(LoaiTinRequest $request, $id)

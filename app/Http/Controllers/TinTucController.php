@@ -39,13 +39,22 @@ class TinTucController extends Controller
 
 	public function edit($id)
 	{
-		$theloai = Theloai::all();
-		$loaitin = LoaiTin::all();
+		$allTheLoai = Theloai::all();
+		$theloai = Theloai::convertToArrayTypeKeyValueTheLoai($allTheLoai);
+		$allLoaiTin = LoaiTin::all();
+		$loaitin = LoaiTin::convertToArrayTypeKeyValueLoaiTin($allLoaiTin);
+
 		$tintuc = TinTuc::find($id);
 		$idTheLoaiSelected = $tintuc->loaitin->theloai->id;
-
-		return view('admin.tintuc.sua', ['theloai' => $theloai, 'loaitin' => $loaitin,
-																			'tintuc' => $tintuc, 'idTheLoaiSelected' => $idTheLoaiSelected]);
+		$idLoaiTinSelected = $tintuc->loaitin->id;
+		return view('admin.tintuc.sua', 
+			[
+				'theloai' => $theloai, 
+				'loaitin' => $loaitin,
+				'tintuc' => $tintuc, 
+				'idTheLoaiSelected' => $idTheLoaiSelected,
+				'idLoaiTinSelected' => $idLoaiTinSelected,
+			]);
 	}
 
 	public function update(TinTucRequest $request, $id) 

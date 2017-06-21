@@ -35,7 +35,6 @@ class TinTuc extends Model
   	$tintuc = TinTuc::where('TieuDe', 'like', "%$keyword%")
               ->orWhere('TomTat', 'like', "%$keyword%")
               ->orWhere('NoiDung', 'like', "%$keyword%")
-              // ->take(30)
               ->paginate(5);
     return $tintuc;
   }
@@ -84,7 +83,7 @@ class TinTuc extends Model
     if($request->hasFile('HinhAnh')) {
       $file = $request->file('HinhAnh');
       $name = $file->getClientOriginalName();
-
+      
       //Xoá ảnh cũ 
       @unlink('upload/tintuc/'.$tintuc->Hinh);
 
@@ -120,6 +119,7 @@ class TinTuc extends Model
     });
     return $result;
   }
+
 }
 
 
